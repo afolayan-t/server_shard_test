@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request
 import json
 import os
 
-from server import Server
+from server import Server, get_server
 from common import cache
 
 config = {
@@ -18,14 +18,21 @@ cache.init_app(app=app, config=config)
 
 @app.route("/", methods = ['GET'])
 def sanity_checK():
-    server = cache.get('server')
+    server = get_server()
+    var = cache.get('var')
+    
     print(cache)
     print(server)
+    print(server.get('nums'))
+    print(server.keys())
+    print(server.values())
+    
+
     if(request.method == 'GET'):
         data = {
             "server": server,
-            "num_processes": len(server.threads),
-            "total_shards": server.num_shards 
+            # "num_processes": len(server[nums]),
+            # "total_shards": server['name'] 
         }
     return jsonify(data)
 
@@ -51,5 +58,7 @@ def send_job(shard_id):
 if __name__ == "__main__":
     from common import cache
     server = Server(num_shards=10)
+    fake_var = "This is a fake variable."
     cache.set("server", server)
+    cache.set("var", fake_var)
     app.run()
