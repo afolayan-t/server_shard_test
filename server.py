@@ -13,16 +13,29 @@ def get_server():
         manager.connect()
 
         server_proxy = manager.get_connection('1234')
+        server = Server(num_shards=server_proxy.get('num_shards'), shard_statuses=server_proxy.get('shard_statuses'), server_proxy=server_proxy)
+        g.server = server
+    return g.server 
+
+
+def get_server_dict():
+    if not hasattr(g, 'server_dict'):
+        # TODO: correctly initialize server manager (set values using server proxy)
+        manager = BaseManager(('', 37844), b'password')
+        manager.register('get_connection')
+        manager.connect()
+
+        server_proxy = manager.get_connection('1234')
         server_keys = server_proxy.keys()
         server_vals = server_proxy.values()
 
-        server = {k:v for k, v in zip(server_keys, server_vals)}
-        print(server)
+        server_dict = {k:v for k, v in zip(server_keys, server_vals)}
 
-        g.server = server
+        g.server_dict = server_dict
         # print(g.server)
     
-    return g.server
+    return g.server_dict
+
 
 def get_server_proxy():
     if not hasattr(g, 'server_proxy'):
@@ -35,18 +48,32 @@ def get_server_proxy():
 
 
 class Server:
-    """This class serves as the main server class that will house the smaller server shards that will each have their own status etc."""
+    """This class serves as the shard manager that organizes the shards and interfaces with the proxy server and the client."""
 
     def __init__(self, num_shards:int=1, shard_statuses=[], server_proxy=None):
+        print(num_shards)
+        print(shard_statuses)
+
         self.server_proxy = server_proxy
         self.num_shards = num_shards
         self.shard_statuses = shard_statuses
-        self.shards = {x:ServerShard(s) for x, s in zip(range(num_shards), shard_statuses)}
+        self.shards = {x:ServerShard(x, s) for x, s in zip(range(num_shards), shard_statuses)}
         self.threads = list()
 
+    def add_shard(self):
+        # TODO: complete method
+        # should add new shard to current server, and update server_proxy as well.
+        self.num_shards += 1
+        self.server_proxy.update('num_shards', self.num_shards)
+        statuses = self.server_proxy.get('shard_statuses')
+        statuses += [0]
+        self.server_proxy.update('shard_statuses', statuses)
+        return
+
     def get_shard(self, id:int):
+        print(id)
         try:
-            return self.shards[id]
+            return self.shards[int(id)]
         except(KeyError):
             raise "There is no server with that ID"
 

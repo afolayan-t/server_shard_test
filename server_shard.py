@@ -5,12 +5,10 @@ import random
 class ServerShard:
     """This class represents each individual server shard that the server has access to."""
     server_status = ["online", "busy", "offline"]
-    shard_number = 0
 
-    def __init__(self, status=0):
-        self.id = self.shard_number
+    def __init__(self, id:int, status=0):
+        self.id = id
         self.status = status # starts as online
-        self.__class__.shard_number += 1
 
     def __repr__(self):
         return f"Shard {self.id}"
@@ -28,7 +26,7 @@ class ServerShard:
             # updating global prooxy server info
             statuses = server_proxy.get('server_statuses')
             statuses[self.id] = new_status
-            server_proxy.set = statuses
+            server_proxy.update('server_statuses', statuses)
         return 
 
     def ping(self) -> str:

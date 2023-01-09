@@ -9,7 +9,7 @@ from server import Server
 lock = Lock()
 connections = {}
 
-server_constructor = {'num_shards': 10, 'shards_statuses': [0 for i in range(10)], 'threads': []}
+server_constructor = {'num_shards': 10, 'shard_statuses': [0 for i in range(10)], 'threads': []}
 
 def get_connection(server_id):
     with lock:
