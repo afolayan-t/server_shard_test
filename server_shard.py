@@ -24,9 +24,9 @@ class ServerShard:
             self.status = new_status
 
             # updating global prooxy server info
-            statuses = server_proxy.get('server_statuses')
+            statuses = server_proxy.get('shard_statuses')
             statuses[self.id] = new_status
-            server_proxy.update('server_statuses', statuses)
+            server_proxy.update([('shard_statuses', statuses)])
         return 
 
     def ping(self) -> str:
@@ -41,13 +41,14 @@ class ServerShard:
             return False
 
     def do_job(self, job, server_proxy):
-        print(job)
         time.sleep(20)
         if self.status == 1: # is busy, set to online
-            self.__set_status(0, server_proxy)
+            choice = random.random() > .9
+            if choice: # set to offline 
+                self.__set_status(2, server_proxy)
+            else:
+                self.__set_status(0, server_proxy)
 
-        if random.choices([True, False], cum_weights=(20,80)): # set to offline 
-            self.__set_status(2, server_proxy)
         return True
 
 

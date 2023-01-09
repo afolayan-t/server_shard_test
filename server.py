@@ -1,5 +1,4 @@
 import threading
-import pickle
 
 from multiprocessing.managers import BaseManager
 from flask import g
@@ -20,7 +19,6 @@ def get_server():
 
 def get_server_dict():
     if not hasattr(g, 'server_dict'):
-        # TODO: correctly initialize server manager (set values using server proxy)
         manager = BaseManager(('', 37844), b'password')
         manager.register('get_connection')
         manager.connect()
@@ -51,9 +49,6 @@ class Server:
     """This class serves as the shard manager that organizes the shards and interfaces with the proxy server and the client."""
 
     def __init__(self, num_shards:int=1, shard_statuses=[], server_proxy=None):
-        print(num_shards)
-        print(shard_statuses)
-
         self.server_proxy = server_proxy
         self.num_shards = num_shards
         self.shard_statuses = shard_statuses
@@ -61,7 +56,6 @@ class Server:
         self.threads = list()
 
     def add_shard(self):
-        # TODO: complete method
         # should add new shard to current server, and update server_proxy as well.
         self.num_shards += 1
         self.server_proxy.update('num_shards', self.num_shards)
@@ -71,7 +65,6 @@ class Server:
         return
 
     def get_shard(self, id:int):
-        print(id)
         try:
             return self.shards[int(id)]
         except(KeyError):
