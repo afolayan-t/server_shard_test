@@ -4,9 +4,9 @@ Created a fake server to simulate server shards in a very simple way. the server
 
 - `/` this route gives a simple status call to the server generally
 - `/<shard_id>/ping` this route lets us check the status of a particular shard
-- `/<shard_id>/send_job` this route lets us send a job to a shard to have it work on it. The job is expected to be just a simple string added as a parameter; `num_shards_to_add=1`.
-- `/add_shards` This route allows a user to add a new shard to deal with another shard going off line.
-- `/remove_shards` this route allows a user to remove shards if they aren't necessary.
+- `/<shard_id>/send_job` this route lets us send a job to a shard to have it work on it. The job is expected to be just a simple string added as a parameter; `job='this is a job'`.
+- `/add_shards` This route allows a user to add a new shard to deal with another shard going off line. Param: `num_shards_to_add=1`
+- `/remove_shards` this route allows a user to remove shards if they aren't necessary. If more shards are removed then exist, the server will defaultt to a single shard. Param: `num_shards_to_remove=1`
 
 shards are either `online`, `busy`, or `offline` these statuses determine whether a shard will accept a new job.
 each time a shard processes a job it has a 10% small chance of going offline, shards are marked as busy for 20 seconds.
