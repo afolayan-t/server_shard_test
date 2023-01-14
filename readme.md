@@ -15,3 +15,8 @@ each time a shard processes a job it has a 10% small chance of going offline, sh
 in order to run project you will first need to create a virtual environment, and activating it. then install the `requirements.txt` file.
 Then in two separate windows, from the project directory, run `flask run` and `python3 server_manager.py`. I will add a .sh script eventually.
 After both apps are running, you can send requests to the flask server to test the code.
+
+## NodeJS Express App ##
+First install packages by running `npm install`. To run server cd into the `fake_load_balancer` directory and run the command `node app.js`. 
+
+I will be attempting to streamline thee run process by dockerizing all of these apps in the future.
