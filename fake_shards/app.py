@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request
 import json
 import os
 
-from fake_server.fake_shards.server import get_server, get_server_dict
+from server import get_server, get_server_dict
 
 
 app = Flask(__name__)

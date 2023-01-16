@@ -3,7 +3,7 @@ import threading
 from multiprocessing.managers import BaseManager
 from flask import g
 
-from fake_server.fake_shards.server_shard import ServerShard
+from server_shard import ServerShard
 
 def get_server():
     if not hasattr(g, 'server'):

@@ -16,6 +16,8 @@ in order to run project you will first need to create a virtual environment, and
 Then in two separate windows, from the project directory, run `flask run` and `python3 server_manager.py`. I will add a .sh script eventually.
 After both apps are running, you can send requests to the flask server to test the code.
 
+*In case of ModuleNotFoundError, delte old environment and redo above code.
+
 ## NodeJS Express App ##
 First install packages by running `npm install`. To run server cd into the `fake_load_balancer` directory and run the command `node app.js`. 
 

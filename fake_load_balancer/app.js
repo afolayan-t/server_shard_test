@@ -2,25 +2,35 @@ const express = require('express')
 const app = express()
 const port = 3000
 
+//Get shard_Id lists into shard array
 const shards = [
-"http://localhost:3000",
-  "http://localhost:3001",
-  "http://localhost:3002"
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
 ]
 
-  
+
   let shard_avail = () => {
-  for (i = 0; i < (shards.length - 1); i++){
-    if (shards[i].status === "online"){
-            console.log("Available")
-    } else if (shards[i].status === "offline"){
-            console.log("Not available")
-    } else console.log("This will be open in a second")
+  for (i = 0; i < (shards.length); i++){
+    if (shards[i] === 0){
+        console.log("Available and online")
+    } else if (shards[i] === 2){
+        console.log("Not available because it is offline")
+    } else {console.log("This will be open in a second")}
 
   }
 }
-    
+
+
 app.get('/', (req, res) => {
+  shard_avail()
     res.send('Load Balancer!')
 })
 
