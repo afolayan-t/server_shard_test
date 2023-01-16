@@ -3,7 +3,7 @@ import threading
 from multiprocessing.managers import BaseManager
 from flask import g
 
-from fake_server.fake_shards.server_shard import ServerShard
+from server_shard import ServerShard
 
 def get_server():
     if not hasattr(g, 'server'):
@@ -72,7 +72,8 @@ class Server:
 
     def run_shard(self, id:int, job:str) -> bool:
         shard = self.get_shard(id)
-        thread = threading.Thread(target=shard.receive_job, args=(job, self.server_proxy))
-        self.threads.append(thread)
-        thread.start()
+        # thread = threading.Thread(target=shard.receive_job, args=(job, self.server_proxy))
+        # self.threads.append(thread)
+        # thread.start()
+        shard.receive_job(job, self.server_proxy)
     

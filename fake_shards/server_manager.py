@@ -4,7 +4,6 @@ import pickle
 from multiprocessing import Lock
 from multiprocessing.managers import BaseManager, DictProxy
 from multiprocessing import Manager
-from fake_server.fake_shards.server import Server
 
 lock = Lock()
 connections = {}
