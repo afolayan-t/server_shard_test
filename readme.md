@@ -21,4 +21,6 @@ After both apps are running, you can send requests to the flask server to test t
 ## NodeJS Express App ##
 First install packages by running `npm install`. To run server cd into the `fake_load_balancer` directory and run the command `node app.js`. 
 
+inorder for server to reload on code change, use command `npm run watch`.
+
 I will be attempting to streamline thee run process by dockerizing all of these apps in the future.

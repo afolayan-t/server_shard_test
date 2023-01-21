@@ -30,7 +30,6 @@ def get_server_dict():
         server_dict = {k:v for k, v in zip(server_keys, server_vals)}
 
         g.server_dict = server_dict
-        # print(g.server)
     
     return g.server_dict
 

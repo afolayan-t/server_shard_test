@@ -30,6 +30,7 @@ def ping_shard(shard_id):
     shard = server.get_shard(shard_id)
     if request.method == 'GET':
         data = {
+            "id": shard.id,
             "shard": f"{shard}",
             "status": shard.ping()
         }
@@ -61,7 +62,7 @@ def add_shards():
     # update server_proxy
     server.server_proxy.update([('shard_statuses', server.shard_statuses)])
     server.server_proxy.update([('num_shards', server.num_shards)])
-    return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
+    return json.dumps({'success':True, 'num_shards': server.num_shards}), 200, {'ContentType':'application/json'}
     # except:
     #     return json.dumps({'success': False, 'message': 'Something went wrong.'}), {'ContentType':'application/json'}
 
