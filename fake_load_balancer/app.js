@@ -20,13 +20,10 @@ async function fetch_shards() {
     }).then((resp) => {
         // num_shards = resp.data.server.num_shards;
         // shard_statuses = resp.data.shard_statuses;
-        // console.log(first)
-        console.log(resp.data)
         return resp
     }).catch((err) => {
         console.log(`Error: ${err}`);
     })
-    console.log(resp.data)
     return resp.data
     // return num_shards, shard_statuses
 }
