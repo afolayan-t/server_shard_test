@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request
 import json
-import os
+
 
 from server import get_server, get_server_dict
 
@@ -83,4 +83,4 @@ def remove_shards():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host='0.0.0.0')

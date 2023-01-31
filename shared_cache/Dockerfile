@@ -2,7 +2,8 @@
 
 FROM python:3.8-slim-buster
 
-WORKDIR /python-docker
+WORKDIR /shared_cache
 
 COPY . .
-CMD python3 -m ./server_manager.py
+
+CMD python3 -m server_manager.py
