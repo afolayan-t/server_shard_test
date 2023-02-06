@@ -1,0 +1,65 @@
+.App {
+  display: flex;
+  align-items: flex-end;
+  text-align: center;
+  background-color: #282c34;
+}
+
+.App-logo {
+  height: 10vmin;
+  pointer-events: none;
+  position: absolute; 
+  left: 10px; 
+  top: 10px;
+  align-items: flex-start;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  display: flex;
+  flex-direction: row;
+  align-content: space-between;
+  background-color: #282c34;
+  min-height: 100vh;
+  justify-content: space-between;
+  align-items: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  /*Keep moving the text to right next to the React symbol*/
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.btn {
+  border: 2px solid black;
+  background-color: white;
+  color: black;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  border-color: #61dafb;;
+  color: #282c34;
+  }
+  
+  /* Green */
+  
+  .btn:hover {
+    background-color: #282c34;
+    color: white;
+  }
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
