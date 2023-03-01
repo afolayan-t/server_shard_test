@@ -32,26 +32,33 @@ class ServerShard:
     def ping(self) -> str:
         return self.get_status()
 
-    def receive_job(self, job, server_proxy) -> bool:
+    def receive_job(self, server_proxy) -> bool:
         if self.get_status() == 'online': # only accept job when online and not busy or offline
             self.__set_status(1, server_proxy) # set to busy
-            self.do_job(job, server_proxy)
+            self.do_job(server_proxy)
             return True
         else:
             return False
 
-    def do_job(self, job, server_proxy):
+    def do_job(self, server_proxy):
         time.sleep(20)
+        num = generate_number()
         if self.status == 1: # is busy, set to online
             choice = random.random() > .9
             if choice: # set to offline 
                 self.__set_status(2, server_proxy)
+                return False
             else:
                 self.__set_status(0, server_proxy)
+                return num
 
-        return True
+        return num
 
 
     
 
-    
+def generate_number() -> int:
+    """"""
+    num = random.randint(0, 100)
+    return num
+

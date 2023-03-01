@@ -8,12 +8,9 @@ from server import get_server, get_server_dict
 app = Flask(__name__)
 
 
-
-
 @app.route("/", methods = ['GET'])
 def sanity_checK():
     server_dict = get_server_dict()
-    
 
     if(request.method == 'GET'):
         data = {
@@ -40,12 +37,10 @@ def ping_shard(shard_id):
 def send_job(shard_id):
     try:
         server = get_server()
-        job = request.args.get('job')
-        print(job)
         shard = server.get_shard(shard_id)
         assert shard.get_status() == 'online'
-        server.run_shard(shard_id, job)
-        return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
+        generated_number = server.run_shard(shard_id)
+        return json.dumps({'success':True, 'generated_number': generated_number}), 200, {'ContentType':'application/json'}
     except:
         return json.dumps({'success': False, 'message': 'the server you chose was either busy or offline'}), {'ContentType':'application/json'}
 
