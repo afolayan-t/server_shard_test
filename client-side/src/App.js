@@ -2,13 +2,18 @@ import logo from './logo.svg';
 import './App.css';
 import axios from 'axios';
 
-//!!Defaults to Post Method
+//Checks for the exact value of the link
+//TODO: Recognize Method based on clicked button
 //Add another document for post method
 function input(e){
   if (e.key === 'Enter') {
-    if(document.getElementById("Ops").value === "option 1"){
+    if(document.getElementById("search").value === "http://127.0.0.1:5000/" ||
+    document.getElementById("search").value === "http://127.0.0.1:5000/1/ping"  ){
       Get_Func()
-    } else{Post_Func()}
+    } else if(document.getElementById("search").value === "http://127.0.0.1:5000/1/send_job" ||
+    document.getElementById("search").value === "http://127.0.0.1:5000/add_shards?num_shards_to_add=5" ||
+    document.getElementById("search").value === "http://127.0.0.1:5000/remove_shards?num_shards_to_remove=1" )
+    {Post_Func()}
   } else{return}
 }
 
@@ -16,7 +21,6 @@ function input(e){
 function Get_Func() {
   document.getElementById("ActG").action = document.getElementById("search").value;
   document.getElementById("get-btn").click();
-
   }
 
 //Post Function
@@ -57,7 +61,7 @@ function App() {
               <button onClick={Get_Func} id="get-btn">GET Button</button> 
             </form>
         </option>
-        <option id="Ops" value="option 2">
+        <option id="Ops2" value="option 2">
             <form id="ActP" action="" method="POST">
               <button onClick={Post_Func} id="post-btn">POST Button</button>
             </form>
